@@ -7,7 +7,6 @@ class mainTabBarController: UITabBarController {
         setupViewControllers()
         setupTabBarAppearance()
     }
-    
     func setupViewControllers() {
         let homeVC = homeViewController()
         let searchVC = searchViewController()
