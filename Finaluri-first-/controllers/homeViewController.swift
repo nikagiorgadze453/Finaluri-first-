@@ -6,6 +6,7 @@ class homeViewController: UIViewController {
     var contentview = UIView()
     var mainstackview = UIStackView()
     var viewModel = homeViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -91,8 +92,12 @@ class homeViewController: UIViewController {
                 titlelabel.bottomAnchor.constraint(equalTo: containerview.bottomAnchor)
             ])
             loadImage(from: movie.Poster, into: imageview)
+            let tapgesture = UITapGestureRecognizer(target: self, action: #selector(movietapped(_:)))
+            containerview.addGestureRecognizer(tapgesture)
+            containerview.tag = viewModel.movies.firstIndex(where: { $0.imdbID == movie.imdbID }) ?? 0
             return containerview
         }
+        
         func loadImage(from urlString: String, into imageview: UIImageView) {
             let url = URL(string: urlString)!
             URLSession.shared.dataTask(with: url) { data, response, error in
@@ -102,5 +107,13 @@ class homeViewController: UIViewController {
                     }
                 }
             }.resume()
+        }
+        @objc func movietapped(_ sender: UITapGestureRecognizer) {
+            guard let tappedView = sender.view else { return }
+            let index = tappedView.tag
+            let movie = viewModel.movies[index]
+            
+            let detailsVC = detailsViewController(movieID: movie.imdbID)
+            navigationController?.pushViewController(detailsVC, animated: true)
         }
 }

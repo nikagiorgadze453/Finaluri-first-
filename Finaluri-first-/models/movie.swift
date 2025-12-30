@@ -12,3 +12,4 @@ struct movie: Codable {
     let imdbID: String
     let Poster: String
 }
+
