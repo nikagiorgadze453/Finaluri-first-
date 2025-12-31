@@ -1,6 +1,6 @@
 import UIKit
 
-class detailsViewController: UIViewController {
+class DetailsViewController: UIViewController {
     
     var scrollview = UIScrollView()
     var contentview = UIView()
@@ -30,6 +30,7 @@ class detailsViewController: UIViewController {
         Scrollviewsetup()
         Uisetup()
         Detailsload()
+        Favoritebuttonsetup()
     }
     
     func Scrollviewsetup() {
@@ -70,7 +71,7 @@ class detailsViewController: UIViewController {
         ratingbadge.clipsToBounds = true
         ratingbadge.textAlignment = .center
         ratingbadge.translatesAutoresizingMaskIntoConstraints = false
-        smallposterimageview.addSubview(ratingbadge)
+        bannerimageview.addSubview(ratingbadge)
         
         titlelabel.textColor = .white
         titlelabel.font = UIFont.boldSystemFont(ofSize: 18)
@@ -92,8 +93,8 @@ class detailsViewController: UIViewController {
         abouttitlelabel.font = UIFont.boldSystemFont(ofSize: 18)
         abouttitlelabel.translatesAutoresizingMaskIntoConstraints = false
         contentview.addSubview(abouttitlelabel)
-        favoritebutton.setTitle("❤️", for: .normal)
-        favoritebutton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
+        favoritebutton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        favoritebutton.tintColor = .systemRed
         favoritebutton.translatesAutoresizingMaskIntoConstraints = false
         contentview.addSubview(favoritebutton)
         plotlabel.textColor = .lightGray
@@ -189,4 +190,33 @@ class detailsViewController: UIViewController {
             }
         }.resume()
     }
+    func Favoritebuttonsetup() {
+        favoritebutton.addTarget(self, action: #selector(favoritetapped), for: .touchUpInside)
+        Updateheartbutton()
+    }
+
+    func Updateheartbutton() {
+        let isfavorite = FavoritesManager.shared.isfavorite(movieID: movieID)
+        
+        if isfavorite {
+            favoritebutton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            favoritebutton.tintColor = .systemRed
+        } else {
+            favoritebutton.setImage(UIImage(systemName: "heart"), for: .normal)
+            favoritebutton.tintColor = .white
+        }
+    }
+
+    @objc func favoritetapped() {
+        let isfavorite = FavoritesManager.shared.isfavorite(movieID: movieID)
+        
+        if isfavorite {
+            FavoritesManager.shared.removefavorite(movieID: movieID)
+        } else {
+            FavoritesManager.shared.savefavorite(movieID: movieID)
+        }
+        
+        Updateheartbutton()
+    }
 }
+    

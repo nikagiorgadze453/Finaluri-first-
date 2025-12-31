@@ -113,7 +113,7 @@ class homeViewController: UIViewController {
             let index = tappedView.tag
             let movie = viewModel.movies[index]
             
-            let detailsVC = detailsViewController(movieID: movie.imdbID)
+            let detailsVC = DetailsViewController(movieID: movie.imdbID)
             navigationController?.pushViewController(detailsVC, animated: true)
         }
 }

@@ -10,8 +10,7 @@ class mainTabBarController: UITabBarController {
     func setupViewControllers() {
         let homeVC = homeViewController()
         let searchVC = searchViewController()
-        let favoritesVC = favoritesViewController()
-        
+        let favoritesVC = FavoritesViewController()
         let homeNav = UINavigationController(rootViewController: homeVC)
         let searchNav = UINavigationController(rootViewController: searchVC)
         let favoritesNav = UINavigationController(rootViewController: favoritesVC)
