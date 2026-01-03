@@ -1,4 +1,6 @@
 import Foundation
+
+
 struct movieDetail: Codable {
     let Title: String
     let Year: String

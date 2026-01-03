@@ -26,8 +26,4 @@ class mainTabBarController: UITabBarController {
         tabBar.tintColor = .systemBlue
         tabBar.backgroundColor = .systemBackground
     }
-    
-    func testfunction() {
-        print("hello")
-    }
 }

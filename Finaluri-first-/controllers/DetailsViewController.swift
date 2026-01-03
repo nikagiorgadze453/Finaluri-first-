@@ -215,7 +215,6 @@ class DetailsViewController: UIViewController {
         } else {
             FavoritesManager.shared.savefavorite(movieID: movieID)
         }
-        
         Updateheartbutton()
     }
 }

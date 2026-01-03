@@ -8,11 +8,13 @@ class FavoritesViewController: UIViewController {
     var emptyLabel = UILabel()
     var emptySubLabel = UILabel()
     var viewModel = favoritesViewModel()
+    var favoritestitleLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         title = "Favourites"
+        favoritestitle()
         Scrollviewsetup()
         Stackviewsetup()
         Emptyviewsetup()
@@ -30,7 +32,7 @@ class FavoritesViewController: UIViewController {
            contentview.translatesAutoresizingMaskIntoConstraints = false
            
            NSLayoutConstraint.activate([
-               scrollview.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollview.topAnchor.constraint(equalTo: favoritestitleLabel.bottomAnchor, constant: 16),
                scrollview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                scrollview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                scrollview.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -75,7 +77,7 @@ class FavoritesViewController: UIViewController {
                emptyview.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                emptyview.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
                emptyview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-               emptyLabel.topAnchor.constraint(equalTo: emptyview.topAnchor),
+               emptyLabel.topAnchor.constraint(equalTo: favoritestitleLabel.topAnchor, constant: 16),
                emptyLabel.leadingAnchor.constraint(equalTo: emptyview.leadingAnchor),
                emptyLabel.trailingAnchor.constraint(equalTo: emptyview.trailingAnchor),
                emptySubLabel.topAnchor.constraint(equalTo: emptyLabel.bottomAnchor, constant: 8),
@@ -172,4 +174,16 @@ class FavoritesViewController: UIViewController {
                }
            }.resume()
        }
+    func favoritestitle(){
+        favoritestitleLabel.text = "Favorites"
+        favoritestitleLabel.textColor = .white
+        favoritestitleLabel.font = UIFont.boldSystemFont(ofSize: 28)
+        favoritestitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(favoritestitleLabel)
+        
+        NSLayoutConstraint.activate([
+          favoritestitleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            favoritestitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+    }
 }
