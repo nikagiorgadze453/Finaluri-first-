@@ -6,11 +6,11 @@ class homeViewController: UIViewController {
     var contentview = UIView()
     var mainstackview = UIStackView()
     var viewModel = homeViewModel()
-
+    var movietitlelabel = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        title = "Movies"
+        Movietitle()
         Scrollviewsetup()
         Stackviewsetup()
         Movieload()
@@ -21,7 +21,7 @@ class homeViewController: UIViewController {
         scrollview.translatesAutoresizingMaskIntoConstraints = false
         contentview.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                scrollview.topAnchor.constraint(equalTo: view.topAnchor),
+                scrollview.topAnchor.constraint(equalTo: movietitlelabel.bottomAnchor, constant: 16),
                 scrollview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 scrollview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 scrollview.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -113,7 +113,19 @@ class homeViewController: UIViewController {
             let index = tappedView.tag
             let movie = viewModel.movies[index]
             
-            let detailsVC = detailsViewController(movieID: movie.imdbID)
+            let detailsVC = DetailsViewController(movieID: movie.imdbID)
             navigationController?.pushViewController(detailsVC, animated: true)
         }
+    func Movietitle(){
+        movietitlelabel.text = "Movies"
+        movietitlelabel.textColor = .white
+        movietitlelabel.font = UIFont.boldSystemFont(ofSize: 28)
+        movietitlelabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(movietitlelabel)
+        
+        NSLayoutConstraint.activate([
+            movietitlelabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            movietitlelabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+        ])
+    }
 }
